@@ -197,10 +197,10 @@ create_gcs_buckets     = "false"
 external_database      = 0
 isolation_segment      = 0
 ssl_cert            = <<SSL_CERT
-$(sudo cat /etc/letsencrypt/live/${PCF_SUBDOMAIN_NAME}.${PCF_DOMAIN_NAME}/fullchain.pem)
+$(cat ~/certs/${PCF_SUBDOMAIN_NAME}.${PCF_DOMAIN_NAME}.crt)
 SSL_CERT
 ssl_private_key     = <<SSL_KEY
-$(sudo cat /etc/letsencrypt/live/${PCF_SUBDOMAIN_NAME}.${PCF_DOMAIN_NAME}/privkey.pem)
+$(cat ~/certs/${PCF_SUBDOMAIN_NAME}.${PCF_DOMAIN_NAME}.key)
 SSL_KEY
 service_account_key = <<SERVICE_ACCOUNT_KEY
 $(cat ~/gcp_credentials.json)
@@ -335,8 +335,8 @@ credhub set -n om-username -t value -v "${OM_USERNAME}"
 credhub set -n om-password -t value -v "${OM_PASSWORD}"
 credhub set -n om-decryption-passphrase -t value -v "${OM_DECRYPTION_PASSPHRASE}"
 #credhub set -n domain-crt-ca -t value -v "$(cat ~/certs/${PCF_SUBDOMAIN_NAME}.${PCF_DOMAIN_NAME}.ca.crt)"
-credhub set -n domain-crt -t value -v "$(sudo cat /etc/letsencrypt/live/${PCF_SUBDOMAIN_NAME}.${PCF_DOMAIN_NAME}/fullchain.pem)"
-credhub set -n domain-key -t value -v "$(sudo cat /etc/letsencrypt/live/${PCF_SUBDOMAIN_NAME}.${PCF_DOMAIN_NAME}/privkey.pem)"
+credhub set -n domain-crt -t value -v "$(cat ~/certs/${PCF_SUBDOMAIN_NAME}.${PCF_DOMAIN_NAME}.crt)"
+credhub set -n domain-key -t value -v "$(cat ~/certs/${PCF_SUBDOMAIN_NAME}.${PCF_DOMAIN_NAME}.key)"
 credhub set -n region -t value -v "${GCP_REGION}"
 credhub set -n az1 -t value -v "${GCP_AZ1}"
 credhub set -n az2 -t value -v "${GCP_AZ2}"
